@@ -3,23 +3,31 @@
     <h1>All Recipes</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
+      <p>Ingredients: {{ recipe.ingredients }}</p>
+      <p>Directions: {{ recipe.directions }}</p>
       <p>Prep time: {{ recipe.prep_time }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data: function () {
     return {
-      recipes: [
-        { id: 1, title: "Raw Eggs", prep_time: 20 },
-        { id: 2, title: "Empty Sandwich", prep_time: 5 },
-        { id: 3, title: "Ice Cubes", prep_time: 120 }
-      ]
+      recipes: []
     };
   },
-  created: function () {},
-  methods: {}
+  created: function () {
+    this.indexRecipes();
+  },
+  methods: {
+    indexRecipes: function () {
+      axios.get("http://localhost:3000/recipes").then((response) => {
+        console.log(response.data);
+        this.recipes = response.data;
+      });
+    }
+  }
 };
 </script>
