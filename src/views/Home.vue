@@ -1,6 +1,20 @@
 <template>
   <div class="home">
     <h1>New Recipe</h1>
+    <div>Title: <input type="text" v-model="newRecipeParams.title" /></div>
+    <div>
+      Ingredients: <input type="text" v-model="newRecipeParams.ingredients" />
+    </div>
+    <div>
+      Directions: <input type="text" v-model="newRecipeParams.directions" />
+    </div>
+    <div>
+      Prep Time: <input type="text" v-model="newRecipeParams.prep_time" />
+    </div>
+    <div>
+      Image Url: <input type="text" v-model="newRecipeParams.image_url" />
+    </div>
+    <p>newRecipeParams: {{ newRecipeParams }}</p>
     <button v-on:click="createRecipe()">Create</button>
     <h1>All Recipes</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
@@ -24,7 +38,8 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      recipes: []
+      recipes: [],
+      newRecipeParams: {}
     };
   },
   created: function () {
@@ -38,15 +53,8 @@ export default {
       });
     },
     createRecipe: function () {
-      var params = {
-        title: "Example title",
-        ingredients: "Example Ingredients",
-        directions: "Example Directions",
-        image_url: "Example Image",
-        prep_time: 25
-      };
       axios
-        .post("http://localhost:3000/recipes", params)
+        .post("http://localhost:3000/recipes", this.newRecipeParams)
         // happy status code/path
         .then((response) => {
           console.log(response.data);
