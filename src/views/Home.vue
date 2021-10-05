@@ -40,6 +40,7 @@
           Prep Time: <input type="text" v-model="currentRecipe.prep_time" />
         </p>
         <button v-on:click="updateRecipe(currentRecipe)">Update</button>
+        <button v-on:click="destroyRecipe(currentRecipe)">Destroy</button>
         <button>Close</button>
       </form>
     </dialog>
@@ -99,6 +100,16 @@ export default {
         })
         .catch((error) => {
           console.log(error.response.data.errors);
+        });
+    },
+    destroyRecipe: function (recipe) {
+      axios
+        .delete(`http://localhost:3000/recipes/${recipe.id}`)
+        .then((response) => {
+          console.log("Success,", response.data);
+          // remove the corrrect deleted recipe from the recipes array
+          var index = this.recipes.indexOf(recipe);
+          this.recipes.splice(index, 1);
         });
     }
   }
