@@ -19,11 +19,20 @@
     <h1>All Recipes</h1>
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h2>Title: {{ recipe.title }}</h2>
-      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" />
-      <p>Ingredients: {{ recipe.ingredients }}</p>
-      <p>Directions: {{ recipe.directions }}</p>
-      <p>Prep time: {{ recipe.prep_time }}</p>
+      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" /><br />
+      <button v-on:click="showRecipe(recipe)">See Details</button>
     </div>
+    <dialog id="recipe-details">
+      <form method="dialog">
+        <h1>Recipe Details</h1>
+        <p>Title: ...</p>
+        <p>Image: ...</p>
+        <p>Ingredients: ...</p>
+        <p>Directions: ...</p>
+        <p>Prep Time: ...</p>
+        <button>Close</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
@@ -64,6 +73,10 @@ export default {
         .catch((error) => {
           console.log(error.response.data.errors);
         });
+    },
+    showRecipe: function (recipe) {
+      console.log(recipe);
+      document.querySelector("#recipe-details").showModal();
     }
   }
 };
