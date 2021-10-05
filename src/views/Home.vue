@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <h1>New Recipe</h1>
+    <ul v-for="error in errors" v-bind:key="error">
+      <li>{{ error }}</li>
+    </ul>
     <div>Title: <input type="text" v-model="newRecipeParams.title" /></div>
     <div>
       Ingredients: <input type="text" v-model="newRecipeParams.ingredients" />
@@ -60,7 +63,8 @@ export default {
     return {
       recipes: [],
       newRecipeParams: {},
-      currentRecipe: {}
+      currentRecipe: {},
+      errors: []
     };
   },
   created: function () {
@@ -68,14 +72,14 @@ export default {
   },
   methods: {
     indexRecipes: function () {
-      axios.get("http://localhost:3000/recipes").then((response) => {
+      axios.get("/recipes").then((response) => {
         console.log(response.data);
         this.recipes = response.data;
       });
     },
     createRecipe: function () {
       axios
-        .post("http://localhost:3000/recipes", this.newRecipeParams)
+        .post("/recipes", this.newRecipeParams)
         // happy status code/path
         .then((response) => {
           console.log(response.data);
@@ -83,7 +87,7 @@ export default {
         })
         // sad status code/path
         .catch((error) => {
-          console.log(error.response.data.errors);
+          this.errors = error.response.data.errors;
         });
     },
     showRecipe: function (recipe) {
@@ -94,7 +98,7 @@ export default {
     updateRecipe: function (recipe) {
       var editRecipeParams = recipe;
       axios
-        .patch(`http://localhost:3000/recipes/${recipe.id}`, editRecipeParams)
+        .patch(`/recipes/${recipe.id}`, editRecipeParams)
         .then((response) => {
           console.log(response.data);
         })
@@ -103,14 +107,12 @@ export default {
         });
     },
     destroyRecipe: function (recipe) {
-      axios
-        .delete(`http://localhost:3000/recipes/${recipe.id}`)
-        .then((response) => {
-          console.log("Success,", response.data);
-          // remove the corrrect deleted recipe from the recipes array
-          var index = this.recipes.indexOf(recipe);
-          this.recipes.splice(index, 1);
-        });
+      axios.delete(`/recipes/${recipe.id}`).then((response) => {
+        console.log("Success,", response.data);
+        // remove the corrrect deleted recipe from the recipes array
+        var index = this.recipes.indexOf(recipe);
+        this.recipes.splice(index, 1);
+      });
     }
   }
 };
