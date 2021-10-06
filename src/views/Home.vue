@@ -50,7 +50,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 img {
   width: 250px;
 }
