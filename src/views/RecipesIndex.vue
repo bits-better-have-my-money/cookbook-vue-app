@@ -4,10 +4,8 @@
     <div v-for="recipe in recipes" v-bind:key="recipe.id">
       <h4>{{ recipe.title }}</h4>
       <img :src="recipe.image_url" alt="" />
-      <p>Ingredients: {{ recipe.ingredients }}</p>
-      <p>Directions: {{ recipe.directions }}</p>
-      <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
       <p>Created at: {{ recipe.friendly_created_at }}</p>
+      <router-link :to="`/recipes/${recipe.id}`">See Details</router-link>
     </div>
   </div>
 </template>
