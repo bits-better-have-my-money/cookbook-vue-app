@@ -6,6 +6,7 @@
     <p>Directions: {{ recipe.directions }}</p>
     <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
     <p>Created at: {{ recipe.friendly_created_at }}</p>
+    <router-link :to="`/recipes/${recipe.id}/edit`">Edit</router-link>
   </div>
 </template>
 
