@@ -6,8 +6,10 @@
     <p>Directions: {{ recipe.directions }}</p>
     <p>Prep Time: {{ recipe.friendly_prep_time }}</p>
     <p>Created at: {{ recipe.friendly_created_at }}</p>
+    <p>{{ typeof $parent.getUserId() }}</p>
+    <p>{{ typeof recipe.user.id }}</p>
     <p>Created by: {{ recipe.user.name }}</p>
-    <div v-if="recipe.owner">
+    <div v-if="$parent.getUserId() == recipe.user.id">
       <router-link :to="`/recipes/${recipe.id}/edit`">Edit</router-link> <br />
       <button v-on:click="destroyRecipe()">Delete</button>
     </div>

@@ -15,7 +15,6 @@
         <router-link to="/logout">Logout</router-link>
       </span>
     </div>
-
     <router-view />
   </div>
 </template>
@@ -48,6 +47,9 @@ export default {
   methods: {
     isLoggedIn: function () {
       return localStorage.jwt;
+    },
+    getUserId: function () {
+      return localStorage.user_id;
     }
   }
 };
