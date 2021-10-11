@@ -15,6 +15,7 @@
         <router-link to="/logout">Logout</router-link>
       </span>
     </div>
+    <div v-if="flashMessage">{{ flashMessage }} <button>Close</button></div>
     <router-view />
   </div>
 </template>
@@ -44,6 +45,11 @@
 
 <script>
 export default {
+  data: function () {
+    return {
+      flashMessage: ""
+    };
+  },
   methods: {
     isLoggedIn: function () {
       return localStorage.jwt;

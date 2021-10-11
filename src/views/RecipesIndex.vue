@@ -5,6 +5,7 @@
       <h4>{{ recipe.title }}</h4>
       <img :src="recipe.image_url" alt="" />
       <p>Created at: {{ recipe.friendly_created_at }}</p>
+      <p v-if="$parent.getUserId() == recipe.user.id">Your recipe</p>
       <router-link :to="`/recipes/${recipe.id}`">See Details</router-link>
     </div>
   </div>
