@@ -1,7 +1,14 @@
 <template>
   <div class="recipes-index">
     <h1>All Recipes</h1>
-    <div>Search: <input type="text" v-model="titleFilter" /></div>
+    <div>Search: <input type="text" v-model="titleFilter" list="titles" /></div>
+
+    <datalist id="titles">
+      <option v-for="recipe in recipes" v-bind:key="recipe.id">
+        {{ recipe.title }}
+      </option>
+    </datalist>
+
     <button v-on:click="setSortAttribute('title')">
       Sort by title
       <span v-if="sortOrder === 1 && sortAttribute === 'title'">^</span>
