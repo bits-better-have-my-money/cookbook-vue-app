@@ -18,7 +18,7 @@ export default {
     return {};
   },
   mounted: function () {
-    mapboxgl.accessToken = "YOUR ACCESS TOKEN GOES HERE";
+    mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN;
     const map = new mapboxgl.Map({
       container: "map", // container ID
       style: "mapbox://styles/mapbox/streets-v11", // style URL
