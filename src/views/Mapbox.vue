@@ -25,7 +25,18 @@ export default {
       center: [-122.43, 37.77], // starting position [lng, lat]
       zoom: 12 // starting zoom
     });
-    console.log(map);
+
+    // create the popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+      "This is the heart of San Francisco"
+    );
+
+    // Create a default Marker and add it to the map.
+    const marker1 = new mapboxgl.Marker()
+      .setLngLat([-122.43, 37.77])
+      .setPopup(popup)
+      .addTo(map);
+    console.log(marker1);
   },
   methods: {}
 };
