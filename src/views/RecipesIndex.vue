@@ -1,7 +1,34 @@
 <template>
   <div class="recipes-index">
-    <h1>All Recipes</h1>
-    <div>Search: <input type="text" v-model="titleFilter" list="titles" /></div>
+    <div class="p-3 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-2">Recipes</h1>
+        <p class="col-md-8 fs-4">Search or sort by your favorite recipes</p>
+        <button
+          class="btn btn-secondary btn-lg"
+          type="button"
+          v-on:click="setSortAttribute('title')"
+        >
+          Sort Title
+          <span v-if="sortOrder === 1 && sortAttribute === 'title'">^</span>
+          <span v-if="sortOrder === -1 && sortAttribute === 'title'">v</span>
+        </button>
+        <button
+          class="btn btn-secondary btn-lg ms-1"
+          type="button"
+          v-on:click="setSortAttribute('prep_time')"
+        >
+          Sort Prep Time
+          <span v-if="sortOrder === 1 && sortAttribute === 'prep_time'">^</span>
+          <span v-if="sortOrder === -1 && sortAttribute === 'prep_time'"
+            >v</span
+          >
+        </button>
+        <!-- <div>
+          Search: <input type="text" v-model="titleFilter" list="titles" />
+        </div> -->
+      </div>
+    </div>
 
     <datalist id="titles">
       <option v-for="recipe in recipes" v-bind:key="recipe.id">
@@ -9,23 +36,9 @@
       </option>
     </datalist>
 
-    <button v-on:click="setSortAttribute('title')">
-      Sort by title
-      <span v-if="sortOrder === 1 && sortAttribute === 'title'">^</span>
-      <span v-if="sortOrder === -1 && sortAttribute === 'title'">v</span>
-    </button>
-    <button v-on:click="setSortAttribute('prep_time')">
-      Sort by prep time
-      <span v-if="sortOrder === 1 && sortAttribute === 'prep_time'">^</span>
-      <span v-if="sortOrder === -1 && sortAttribute === 'prep_time'">v</span>
-    </button>
-    <div
-      is="transition-group"
-      appear
-      enter-active-class="animate__animated animate__fadeIn"
-      leave-active-class="animate__animated animate__fadeOut"
-    >
+    <div class="row row-cols-1 row-cols-md-3 g-4">
       <div
+        class="col"
         v-for="recipe in orderBy(
           filterBy(recipes, titleFilter, 'title'),
           sortAttribute,
@@ -33,16 +46,30 @@
         )"
         v-bind:key="recipe.id"
       >
-        <h4>{{ recipe.title }}</h4>
-        <img :src="recipe.image_url" alt="" />
-        <p>Prep time: {{ recipe.prep_time }}</p>
-        <p>Created {{ relativeDate(recipe.created_at) }}</p>
-        <p v-if="$parent.getUserId() == recipe.user.id">Your recipe</p>
-        <router-link :to="`/recipes/${recipe.id}`">See Details</router-link>
+        <div class="card">
+          <img :src="recipe.image_url" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text">
+              {{ recipe.prep_time }} to prepare, created
+              {{ relativeDate(recipe.created_at) }} <br />
+              <router-link :to="`/recipes/${recipe.id}`"
+                >See Details</router-link
+              >
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.card img {
+  object-fit: cover;
+  height: 300px;
+}
+</style>
 
 <script>
 import axios from "axios";
