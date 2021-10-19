@@ -1,32 +1,46 @@
 <template>
   <div class="recipes-index">
     <div class="p-3 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
+      <div class="container-fluid py-4">
         <h1 class="display-2">Recipes</h1>
         <p class="col-md-8 fs-4">Search or sort by your favorite recipes</p>
-        <button
-          class="btn btn-secondary btn-lg"
-          type="button"
-          v-on:click="setSortAttribute('title')"
-        >
-          Sort Title
-          <span v-if="sortOrder === 1 && sortAttribute === 'title'">^</span>
-          <span v-if="sortOrder === -1 && sortAttribute === 'title'">v</span>
-        </button>
-        <button
-          class="btn btn-secondary btn-lg ms-1"
-          type="button"
-          v-on:click="setSortAttribute('prep_time')"
-        >
-          Sort Prep Time
-          <span v-if="sortOrder === 1 && sortAttribute === 'prep_time'">^</span>
-          <span v-if="sortOrder === -1 && sortAttribute === 'prep_time'"
-            >v</span
-          >
-        </button>
-        <!-- <div>
-          Search: <input type="text" v-model="titleFilter" list="titles" />
-        </div> -->
+        <div class="row">
+          <div class="col-md-12 col-lg-8 mb-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search"
+              v-model="titleFilter"
+              list="titles"
+            />
+          </div>
+          <div class="col-md-12 col-lg-4">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              v-on:click="setSortAttribute('title')"
+            >
+              Sort Title
+              <span v-if="sortOrder === 1 && sortAttribute === 'title'">^</span>
+              <span v-if="sortOrder === -1 && sortAttribute === 'title'"
+                >v</span
+              >
+            </button>
+            <button
+              class="btn btn-secondary ms-1"
+              type="button"
+              v-on:click="setSortAttribute('prep_time')"
+            >
+              Sort Prep Time
+              <span v-if="sortOrder === 1 && sortAttribute === 'prep_time'"
+                >^</span
+              >
+              <span v-if="sortOrder === -1 && sortAttribute === 'prep_time'"
+                >v</span
+              >
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
