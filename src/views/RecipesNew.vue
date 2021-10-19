@@ -1,35 +1,65 @@
 <template>
   <div class="recipes-new">
+    <div class="p-3 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-4">
+        <h1 class="display-2">New Recipe</h1>
+      </div>
+    </div>
     <form v-on:submit.prevent="createRecipe()">
-      <h1>New Recipe</h1>
       <img v-if="status" :src="`https://http.cat/${status}`" alt="" />
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
-      <div>
-        <label>Title:</label>
-        <input type="text" v-model="newRecipeParams.title" />
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          placeholder="Pumpkin Cheesecake"
+          v-model="newRecipeParams.title"
+        />
       </div>
-      <div>
-        <label>Image Url:</label>
-        <input type="text" v-model="newRecipeParams.image_url" />
+      <div class="mb-3">
+        <label for="image_url" class="form-label">Image Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image_url"
+          placeholder=".jpg, .jpeg, .png extensions supported"
+          v-model="newRecipeParams.image_url"
+        />
       </div>
-      <div>
-        <label>Ingredients:</label>
-        <input type="text" v-model="newRecipeParams.ingredients" />
+      <div class="mb-3">
+        <label for="ingredients" class="form-label">Ingredients</label>
+        <textarea
+          class="form-control"
+          id="ingredients"
+          rows="3"
+          v-model="newRecipeParams.ingredients"
+        ></textarea>
       </div>
-      <div>
-        <label>Directions:</label>
-        <input type="text" v-model="newRecipeParams.directions" />
+      <div class="mb-3">
+        <label for="directions" class="form-label">Directions</label>
+        <textarea
+          class="form-control"
+          id="directions"
+          rows="3"
+          v-model="newRecipeParams.directions"
+        ></textarea>
       </div>
-      <div>
-        <label>Prep Time:</label>
-        <input type="text" v-model="newRecipeParams.prep_time" />
+      <div class="mb-3">
+        <label for="prep_time" class="form-label">Prep Time (in minutes)</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prep_time"
+          placeholder="15"
+          v-model="newRecipeParams.prep_time"
+        />
       </div>
-      <input type="submit" value="Create" />
+      <button type="submit" class="btn btn-warning">Create</button>
     </form>
-
-    newRecipeParams: {{ newRecipeParams }}
   </div>
 </template>
 
