@@ -61,15 +61,14 @@
         v-bind:key="recipe.id"
       >
         <div class="card">
-          <img :src="recipe.image_url" class="card-img-top" alt="..." />
+          <router-link :to="`/recipes/${recipe.id}`">
+            <img :src="recipe.image_url" class="card-img-top" alt="..."
+          /></router-link>
           <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>
             <p class="card-text">
               {{ recipe.prep_time }} to prepare, created
               {{ relativeDate(recipe.created_at) }} <br />
-              <router-link :to="`/recipes/${recipe.id}`"
-                >See Details</router-link
-              >
             </p>
           </div>
         </div>
