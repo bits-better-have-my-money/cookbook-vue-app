@@ -19,11 +19,38 @@
     </div>
     <p>newRecipeParams: {{ newRecipeParams }}</p>
     <button v-on:click="createRecipe()">Create</button>
-    <h1>All Recipes</h1>
-    <div v-for="recipe in recipes" v-bind:key="recipe.id">
-      <h2>Title: {{ recipe.title }}</h2>
-      <img v-bind:src="recipe.image_url" v-bind:alt="recipe.title" /><br />
-      <button v-on:click="showRecipe(recipe)">See Details</button>
+
+    <div id="fh5co-work-section" class="fh5co-light-grey-section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-md-4"
+            v-for="recipe in recipes"
+            v-bind:key="recipe.id"
+          >
+            <a href="#" class="item-grid text-center">
+              <div
+                class="image"
+                :style="`background-image: url(${recipe.image_url})`"
+              ></div>
+              <div class="v-align">
+                <div class="v-align-middle">
+                  <h3 class="title">{{ recipe.title }}</h3>
+                  <h5 class="category">
+                    <button
+                      class="btn btn-primary btn-outline with-arrow"
+                      v-on:click="showRecipe(recipe)"
+                    >
+                      See Details
+                      <i class="icon-arrow-right"></i>
+                    </button>
+                  </h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
     <dialog id="recipe-details">
       <form method="dialog">
