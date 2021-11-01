@@ -10,6 +10,7 @@ import RecipesNew from "../views/RecipesNew.vue";
 import RecipesShow from "../views/RecipesShow.vue";
 import RecipesEdit from "../views/RecipesEdit.vue";
 import Mapbox from "../views/Mapbox.vue";
+import MessagesIndex from "../views/MessagesIndex.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +24,8 @@ const routes = [
   { path: "/recipes/new", name: "recipes-new", component: RecipesNew },
   { path: "/recipes/:id", name: "recipes-show", component: RecipesShow },
   { path: "/recipes/:id/edit", name: "recipes-edit", component: RecipesEdit },
-  { path: "/mapbox", name: "mapbox", component: Mapbox }
+  { path: "/mapbox", name: "mapbox", component: Mapbox },
+  { path: "/messages", name: "messages-index", component: MessagesIndex }
 ];
 
 const router = new VueRouter({

@@ -27,7 +27,9 @@
       {{ flashMessage }} <button v-on:click="flashMessage = ''">Close</button>
     </div>
 
-    <router-view />
+    <div class="container">
+      <router-view />
+    </div>
     <footer id="fh5co-footer" role="contentinfo">
       <div class="container">
         <div class="col-md-3 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
