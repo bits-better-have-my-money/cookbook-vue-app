@@ -5,7 +5,7 @@
         <h1 class="display-2">New Recipe</h1>
       </div>
     </div>
-    <form v-on:submit.prevent="createRecipe()">
+    <form v-on:submit.prevent="createRecipe()" enctype="multipart/form-data">
       <img v-if="status" :src="`https://http.cat/${status}`" alt="" />
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
@@ -21,13 +21,13 @@
         />
       </div>
       <div class="mb-3">
-        <label for="image_url" class="form-label">Image Url</label>
+        <label for="image_file" class="form-label">Image</label>
         <input
-          type="text"
+          type="file"
           class="form-control"
-          id="image_url"
-          placeholder=".jpg, .jpeg, .png extensions supported"
-          v-model="newRecipeParams.image_url"
+          id="image_file"
+          v-on:change="setFile($event)"
+          ref="fileInput"
         />
       </div>
       <div class="mb-3">
@@ -59,6 +59,7 @@
         />
       </div>
       <button type="submit" class="btn btn-warning">Create</button>
+      newRecipeParams: {{ newRecipeParams }}
     </form>
   </div>
 </template>
@@ -71,13 +72,25 @@ export default {
     return {
       newRecipeParams: {},
       errors: [],
-      status: null
+      status: null,
+      image_file: {}
     };
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.image_file = event.target.files[0];
+      }
+    },
     createRecipe: function () {
+      var formData = new FormData();
+      formData.append("image_file", this.image_file);
+      formData.append("title", this.newRecipeParams.title);
+      formData.append("ingredients", this.newRecipeParams.ingredients);
+      formData.append("directions", this.newRecipeParams.directions);
+      formData.append("prep_time", this.newRecipeParams.prep_time);
       axios
-        .post("/recipes", this.newRecipeParams)
+        .post("/recipes", formData)
         .then((response) => {
           console.log(response.data);
           this.$parent.flashMessage = "Recipe successfully created!";
